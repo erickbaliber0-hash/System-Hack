@@ -1,44 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>System Breach</title>
 <style>
 body {
     background: black;
     color: #00ff00;
     font-family: monospace;
-    padding: 20px;
+    padding: 15px;
+    margin: 0;
     overflow-x: hidden;
 }
 
 #terminal {
-    font-size: 18px;
-    line-height: 1.6;
+    font-size: 16px;
+    line-height: 1.5;
     white-space: pre-wrap;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    word-break: break-word;
 }
 
 #loadingBarContainer {
     width: 100%;
     background: #003300;
     border: 1px solid #00ff00;
-    height: 20px;
-    margin-top: 20px;
+    height: 16px;
+    margin-top: 15px;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 #loadingBar {
     width: 0%;
     height: 100%;
     background: #00ff00;
+    transition: width 0.1s linear;
 }
 
 .hackAlert {
     color: red;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     text-align: center;
     line-height: 1.2;
-    margin-top: 30px;
+    margin-top: 20px;
     white-space: pre-wrap;
     animation: flicker 0.15s infinite;
     display: none;
@@ -51,32 +57,46 @@ body {
 
 #prankPopup {
     position: fixed;
-    top: 40%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #111;
     border: 2px solid #00ff00;
-    padding: 30px 50px;
+    padding: 20px 30px;
     color: #00ff00;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     display: none;
     text-align: center;
     z-index: 9999;
-    box-shadow: 0 0 20px #00ff00;
-    animation: popupFade 1s ease forwards;
+    box-shadow: 0 0 15px #00ff00;
+    animation: popupFade 0.8s ease forwards;
+    max-width: 80%;
 }
 
 @keyframes popupFade {
     from {opacity:0; transform: translate(-50%, -60%);}
     to {opacity:1; transform: translate(-50%, -50%);}
 }
+
+/* Small screen adjustments */
+@media (max-width: 400px) {
+    #terminal {
+        font-size: 14px;
+    }
+    .hackAlert {
+        font-size: 20px;
+    }
+    #prankPopup {
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+}
 </style>
 </head>
-
 <body>
 
-<h2>Initializing System Access...</h2>
+<h2 style="font-size: 18px;">Initializing System Access...</h2>
 <div id="terminal"></div>
 
 <div id="loadingBarContainer">
@@ -94,13 +114,13 @@ joke lang <br>!!!!!
 <script>
 const lines = [
 "> Cracking System.....",
-"> Bloking System......",
-"> Security Bloking.....",
+"> Blocking System......",
+"> Security Blocking.....",
 "> Accessing device...",
 "> Access granted...",
 "> Scanning files...",
 "> Downloading photos...",
-"> extractingg...",
+"> Extracting data...",
 "> Installing virus.exe...",
 ];
 
@@ -120,16 +140,15 @@ function typeLine(){
             if(j < line.length){
                 terminal.innerHTML += line[j];
                 j++;
-                setTimeout(typeChar, Math.random() * 80 + 20);
+                setTimeout(typeChar, Math.random() * 50 + 20); // faster typing for mobile
             } else {
                 terminal.innerHTML += "\n";
                 i++;
-                setTimeout(typeLine, Math.random() * 400 + 200);
+                setTimeout(typeLine, Math.random() * 200 + 100);
             }
         }
         typeChar();
     } else {
-        // After lines, start overall loading bar
         fillLoadingBar();
     }
 }
@@ -142,18 +161,16 @@ function fillLoadingBar(){
         loadingBar.style.width = width + "%";
         if(width >= 100){
             clearInterval(interval);
-            // Show dramatic SYSTEM HACKED alert
             hackAlert.style.display = "block";
-            // Show prank popup after short delay
             setTimeout(() => {
                 prankPopup.style.display = "block";
-            }, 1000);
+            }, 800);
         }
-    }, 50);
+    }, 40);
 }
 
 typeLine();
 </script>
 
 </body>
-  </html>
+</html>
